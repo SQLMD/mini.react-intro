@@ -16,7 +16,7 @@ class App extends Component {
         { firstName: "Mia", lastName: "Kirmse" },
       ],
       view: "List",
-      idx: 0,
+      currentUserIndex: 0,
     };
     this.onAddUser = this.onAddUser.bind(this);
     this.createUser = this.createUser.bind(this);
@@ -35,22 +35,22 @@ class App extends Component {
   onEditUser(idx) {
     const newState = JSON.parse(JSON.stringify(this.state));
     newState.view = "Edit";
-    newState.idx = idx;
+    newState.currentUserIndex = idx;
     this.setState(newState);
   }
 
   onDeleteUser(idx) {
     const newState = JSON.parse(JSON.stringify(this.state));
-    newState.view = "Delete";
-    newState.idx = idx;
-    newState.users.splice(newState.idx, 1);
+    newState.currentUserIndex = idx;
+    newState.users.splice(idx, 1);
+    newState.view = "List";
     this.setState(newState);
   }
 
   editUser(firstName, lastName) {
     const newState = JSON.parse(JSON.stringify(this.state));
-    newState.users[newState.idx].firstName = firstName;
-    newState.users[newState.idx].lastName = lastName;
+    newState.users[newState.currentUserIndex].firstName = firstName;
+    newState.users[newState.currentUserIndex].lastName = lastName;
     newState.view = "List";
     this.setState(newState);
   }
@@ -79,18 +79,8 @@ class App extends Component {
     if (this.state.view === "Edit") {
       return (
         <Edit
-          user={this.state.users[this.state.idx]}
+          user={this.state.users[this.state.currentUserIndex]}
           editUser={this.editUser}
-        />
-      );
-    }
-    if (this.state.view === "Delete") {
-      return (
-        <List
-          users={this.state.users}
-          onAddUser={this.onAddUser}
-          onEditUser={this.onEditUser}
-          onDeleteUser={this.onDeleteUser}
         />
       );
     }

@@ -4,8 +4,8 @@ class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastname: this.props.user.lastname,
-      firstname: this.props.user.firstname,
+      lastname: this.props.user.lastName,
+      firstname: this.props.user.firstName,
     };
   }
   takeV(e) {
@@ -15,28 +15,28 @@ class Edit extends Component {
     this.setState({ firstname: e.target.value });
   }
   render() {
-    console.log(this.props);
     return (
       <div>
         <input
           name="firstname"
           type="text"
           onChange={this.takeF.bind(this)}
-          placeholder={this.props.user.firstName}
+          defaultValue={this.props.user.firstName}
         />
         <br />
         <input
           name="lastname"
           type="text"
           onChange={this.takeV.bind(this)}
-          placeholder={this.props.user.lastName}
+          defaultValue={this.props.user.lastName}
         />
+        <br />
         <button
           onClick={() =>
             this.props.editUser(this.state.firstname, this.state.lastname)
           }
         >
-          Add
+          Edit
         </button>
       </div>
     );

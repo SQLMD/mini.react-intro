@@ -15,20 +15,22 @@ class Create extends Component {
     this.setState({ firstname: e.target.value });
   }
   render() {
-    console.log("this", this.props.user);
-
     return (
       <div>
-        <label htmlFor="firstname">firstname</label>
         <input
           name="firstname"
           type="text"
           onChange={this.takeF.bind(this)}
-          // onChange={() => this.state.firstname}
+          placeholder="First Name"
         />
         <br />
-        <label htmlFor="lastname">lastname</label>
-        <input name="lastname" type="text" onChange={this.takeV.bind(this)} />
+        <input
+          name="lastname"
+          type="text"
+          onChange={this.takeV.bind(this)}
+          placeholder="Last Name"
+        />
+        <br />
         <button
           onClick={() =>
             this.props.createUser(this.state.firstname, this.state.lastname)

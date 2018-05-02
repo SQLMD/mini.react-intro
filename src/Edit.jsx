@@ -15,18 +15,22 @@ class Edit extends Component {
     this.setState({ firstname: e.target.value });
   }
   render() {
+    console.log(this.props);
     return (
       <div>
-        <label htmlFor="firstname">firstname</label>
         <input
           name="firstname"
           type="text"
           onChange={this.takeF.bind(this)}
-          // onChange={() => this.state.firstname}
+          placeholder={this.props.user.firstName}
         />
         <br />
-        <label htmlFor="lastname">lastname</label>
-        <input name="lastname" type="text" onChange={this.takeV.bind(this)} />
+        <input
+          name="lastname"
+          type="text"
+          onChange={this.takeV.bind(this)}
+          placeholder={this.props.user.lastName}
+        />
         <button
           onClick={() =>
             this.props.editUser(this.state.firstname, this.state.lastname)

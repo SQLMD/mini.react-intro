@@ -10,6 +10,9 @@ class List extends Component {
               <li key={idx}>
                 {user.firstName} {user.lastName}{" "}
                 <button onClick={() => this.props.onEditUser(idx)}>Edit</button>
+                <button onClick={() => this.props.onDeleteUser(idx)}>
+                  Delete
+                </button>
               </li>
             );
           })}

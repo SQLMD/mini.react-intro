@@ -20,9 +20,9 @@ class App extends Component {
     };
     this.onAddUser = this.onAddUser.bind(this);
     this.createUser = this.createUser.bind(this);
-
     this.editUser = this.editUser.bind(this);
     this.onEditUser = this.onEditUser.bind(this);
+    this.onDeleteUser = this.onDeleteUser.bind(this);
   }
 
   onAddUser() {
@@ -33,30 +33,30 @@ class App extends Component {
   }
 
   onEditUser(idx) {
-    console.log(idx);
-    console.log(this.state);
-
-    //show the edit view
     const newState = JSON.parse(JSON.stringify(this.state));
-    this.newState.setState({ idx, view: "Edit" });
-    //update currentUserIndex
-    //edit view has input form filled out already using placeholders
-    //click on edit use edit User function
+    newState.view = "Edit";
+    newState.idx = idx;
+    this.setState(newState);
+  }
+
+  onDeleteUser(idx) {
+    const newState = JSON.parse(JSON.stringify(this.state));
+    newState.view = "Delete";
+    newState.idx = idx;
+    newState.users.splice(newState.idx, 1);
+    this.setState(newState);
   }
 
   editUser(firstName, lastName) {
-    //update the state with the new values
-    //change the view back to List
     const newState = JSON.parse(JSON.stringify(this.state));
-    console.log(firstName, lastName);
-    newState.users[newState.idx] = { firstName, lastName };
+    newState.users[newState.idx].firstName = firstName;
+    newState.users[newState.idx].lastName = lastName;
     newState.view = "List";
     this.setState(newState);
   }
 
   createUser(firstName, lastName) {
     const newState = JSON.parse(JSON.stringify(this.state));
-    console.log(firstName, lastName);
     newState.users.push({ firstName, lastName });
     newState.view = "List";
     this.setState(newState);
@@ -69,6 +69,7 @@ class App extends Component {
           users={this.state.users}
           onAddUser={this.onAddUser}
           onEditUser={this.onEditUser}
+          onDeleteUser={this.onDeleteUser}
         />
       );
     }
@@ -80,6 +81,16 @@ class App extends Component {
         <Edit
           user={this.state.users[this.state.idx]}
           editUser={this.editUser}
+        />
+      );
+    }
+    if (this.state.view === "Delete") {
+      return (
+        <List
+          users={this.state.users}
+          onAddUser={this.onAddUser}
+          onEditUser={this.onEditUser}
+          onDeleteUser={this.onDeleteUser}
         />
       );
     }

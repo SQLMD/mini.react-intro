@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 
-class Create extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      lastname: "",
-      firstname: "",
+      lastname: this.props.user.lastname,
+      firstname: this.props.user.firstname,
     };
   }
   takeV(e) {
@@ -15,8 +15,6 @@ class Create extends Component {
     this.setState({ firstname: e.target.value });
   }
   render() {
-    console.log("this", this.props.user);
-
     return (
       <div>
         <label htmlFor="firstname">firstname</label>
@@ -31,7 +29,7 @@ class Create extends Component {
         <input name="lastname" type="text" onChange={this.takeV.bind(this)} />
         <button
           onClick={() =>
-            this.props.createUser(this.state.firstname, this.state.lastname)
+            this.props.editUser(this.state.firstname, this.state.lastname)
           }
         >
           Add
@@ -41,4 +39,4 @@ class Create extends Component {
   }
 }
 
-export default Create;
+export default Edit;
